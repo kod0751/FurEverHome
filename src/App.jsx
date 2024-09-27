@@ -1,21 +1,18 @@
-import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import './App.css';
-import Header from './components/layout/Header';
-import MainSection from './components/layout/MainSection';
-import theme from './styles/theme';
-import SwiperSection from './components/layout/SwiperSection';
-import GraphSection from './components/layout/GraphSection';
+
+import HomePage from './pages/Home';
+import PetListpage from './pages/PetList';
 
 function App() {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Header />
-        <MainSection />
-        <SwiperSection />
-        <GraphSection />
-      </ThemeProvider>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={HomePage} />
+        <Route path="/list" component={PetListpage} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

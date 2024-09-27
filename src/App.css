@@ -6,5 +6,8 @@ html {
 }
 
 body {
+  width: 100%;
   max-width: 1440px;
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 0 20px; /* 좌우 패딩 */
 }
