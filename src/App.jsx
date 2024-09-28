@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={HomePage} />
-        <Route path="/list" component={PetListpage} />
+        <Route path="/list" Component={PetListpage} />
       </Routes>
     </BrowserRouter>
   );
