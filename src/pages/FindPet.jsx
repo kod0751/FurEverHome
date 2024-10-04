@@ -7,10 +7,15 @@ import PetLoad from '../components/layout/FindPet/PetLoad';
 import PetResult from '../components/layout/FindPet/PetResult';
 
 export default function FindPetPage() {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(0);
+
+  const handleKindChange = (kind) => {
+    console.log('kind', kind);
+  };
+
   return (
     <div>
-      {step === 0 ? <PetKind /> : null}
+      {step === 0 ? <PetKind onNext={handleKindChange} /> : null}
       {step === 1 ? <PetGender /> : null}
       {step === 2 ? <PetWeight /> : null}
       {step === 3 ? <PetColor /> : null}

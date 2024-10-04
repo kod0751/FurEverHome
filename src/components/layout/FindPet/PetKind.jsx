@@ -71,10 +71,11 @@ const NextButton = styled.div`
     height: 2rem;
     margin-left: 0.5rem;
     vertical-align: middle;
+    cursor: pointer;
   }
 `;
 
-export default function PetKind() {
+export default function PetKind({ onNext }) {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -98,7 +99,11 @@ export default function PetKind() {
           </button>
         </ButtonBox>
         <NextButton>
-          <button>
+          <button
+            onClick={(e) => {
+              onNext(e.target.value);
+            }}
+          >
             다음
             <img src="./src/assets/Dog print.png" />
           </button>
