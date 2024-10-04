@@ -1,15 +1,15 @@
-import Header from '../components/layout/Header';
-import SwiperSection from '../components/layout/SwiperSection';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme';
+import Header from '../components/layout/Header';
+import LocationSection from '../components/layout/LocationSection';
 import CategorySection from '../components/layout/CategorySection';
 
-export default function PetListpage() {
+export default function LocationPage() {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Header />
-        <SwiperSection />
+        <LocationSection />
         <CategorySection />
       </ThemeProvider>
     </>

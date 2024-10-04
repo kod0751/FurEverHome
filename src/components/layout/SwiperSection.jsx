@@ -12,6 +12,7 @@ const SwiperArea = styled.div`
   .textArea {
     font-family: 'NanumSquareNeoExtraBold';
     font-size: ${({ theme }) => theme.fontSize.title};
+    color: ${({ theme }) => theme.color.black};
     padding: 2rem;
   }
 `;

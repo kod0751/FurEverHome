@@ -131,6 +131,10 @@ table {
   border-spacing: 0;
 }
 
+a:visited {
+  color: #323232;
+}
+
 .highlight {
   color: #008bf0;
 }
