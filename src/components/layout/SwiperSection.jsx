@@ -19,27 +19,6 @@ const SwiperArea = styled.div`
   }
 `;
 
-const CustomNavButton = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #d9d9d9;
-  cursor: pointer;
-  z-index: 9;
-  font-size: 2.5rem;
-  &:hover {
-    color: #47b2ff;
-  }
-`;
-
-const PrevButton = styled(CustomNavButton)`
-  left: -3rem;
-`;
-
-const NextButton = styled(CustomNavButton)`
-  right: -3rem;
-`;
-
 export default function SwiperSection() {
   const [swiperItems, setSwiperItems] = useState([]);
 
@@ -75,12 +54,6 @@ export default function SwiperSection() {
   return (
     <SwiperArea>
       <div className="textArea">공고기간이 하루 남은 친구들이에요!</div>
-      <PrevButton className="custom-prev">
-        <box-icon name="chevron-left"></box-icon>
-      </PrevButton>
-      <NextButton className="custom-next">
-        <box-icon name="chevron-right"></box-icon>
-      </NextButton>
       <Swiper
         navigation={true}
         spaceBetween={10}
@@ -100,9 +73,6 @@ export default function SwiperSection() {
           },
           1440: {
             slidesPerView: 5,
-          },
-          1600: {
-            slidesPerView: 6,
           },
         }}
       >

@@ -2,12 +2,13 @@ import Card from '../common/Card';
 import styled from 'styled-components';
 
 const Container = styled.section`
-  margin: 0rem 0 3rem 0;
+  width: 100%;
+  margin-bottom: 3rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   row-gap: 2rem;
   position: relative;
-  width: 100%;
+
   @media (max-width: 1400px) {
     grid-template-columns: repeat(4, 1fr);
   }

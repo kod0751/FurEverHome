@@ -46,7 +46,11 @@ export default function PetListpage() {
           기다리고 있어요
         </TextArea>
         <PetlistSection data={items.slice((page - 1) * 15, page * 15)} />
-        <PageNation value={page} onChange={setPage} total={items.length / 15} />
+        <PageNation
+          value={page}
+          onChange={setPage}
+          total={items.length / 15 + 1}
+        />
       </ThemeProvider>
     </>
   );
