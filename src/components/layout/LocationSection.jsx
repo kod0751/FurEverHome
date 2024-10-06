@@ -15,7 +15,7 @@ const LocalText = styled.div`
   color: ${({ theme }) => theme.color.black};
 `;
 
-export default function LocationSection() {
+export default function LocationSection({ setShelter }) {
   const positions = [
     {
       title: '가평군유기동물보호소',
@@ -117,25 +117,26 @@ export default function LocationSection() {
       <Map // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
-          lat: 37.3401156,
+          lat: 37.5401156,
           lng: 126.8700487,
         }}
         style={{
           // 지도의 크기
           width: '100%',
-          height: '600px',
+          height: '35rem',
         }}
         level={10} // 지도의 확대 레벨
       >
-        {positions.map((loc) => (
+        {positions.map((loc, index) => (
           <MapMarker
-            key={`${loc.title}-${loc.latlng}`}
+            key={index}
             position={loc.latlng}
             image={{
-              src: './src/assets/Group 540.png',
+              src: './src/assets/mark.png',
               size: { width: 20, height: 20 },
             }}
             title={loc.title}
+            onClick={() => setShelter({ title: loc.title })}
           />
         ))}
       </Map>
