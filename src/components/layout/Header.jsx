@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderSection = styled.div`
@@ -26,6 +26,9 @@ const HeaderSection = styled.div`
   li {
     font-family: 'NanumSquareNeoExtraBold';
   }
+  .active {
+    color: ${({ theme }) => theme.color.blue}; /* 활성화된 링크에 다른 색상 */
+  }
 `;
 
 export default function Header() {
@@ -41,16 +44,24 @@ export default function Header() {
         </div>
         <ul>
           <li>
-            <Link to="/list">유기동물보기</Link>
+            <NavLink to="/list" activeClassName="active">
+              유기동물보기
+            </NavLink>
           </li>
           <li>
-            <Link to="/find">털친소</Link>
+            <NavLink to="/find" activeClassName="active">
+              털친소
+            </NavLink>
           </li>
           <li>
-            <Link to="/location">주변 보호소 찾기</Link>
+            <NavLink to="/location" activeClassName="active">
+              주변 보호소 찾기
+            </NavLink>
           </li>
           <li>
-            <Link to="/mypet">나의 관심동물</Link>
+            <NavLink to="/mypet" activeClassName="active">
+              나의 관심동물
+            </NavLink>
           </li>
         </ul>
       </HeaderSection>
