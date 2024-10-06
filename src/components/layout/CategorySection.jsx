@@ -49,48 +49,84 @@ const regions = [
   '화성시',
 ];
 
-export default function CategorySection() {
+const state = ['전체', '보호중', '종료'];
+const kind = ['전체', '강아지', '고양이', '그외'];
+const age = ['전체', '1세미만', '1살~5살', '6살~9살', '10살이상'];
+const gender = ['전체', '남아', '여아'];
+const neut = ['전체', '완료', '미완료', '알수없음'];
+
+export default function CategorySection({ filters, setFilters }) {
   return (
     <SelectBox>
-      <select className="select" name="지역명" id="1">
+      <select
+        className="select"
+        name="지역명"
+        value={filters.region}
+        onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+      >
         {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
+          <option value={region !== '시도군' ? region : '시도군'} key={idx}>
             {region}
           </option>
         ))}
       </select>
-      <select className="select" name="지역명" id="1">
-        {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
-            {region}
+      <select
+        className="select"
+        name="상태"
+        value={filters.state}
+        onChange={(e) => setFilters({ ...filters, state: e.target.value })}
+      >
+        {state.map((state, idx) => (
+          <option value={state !== '전체' ? state : '전체'} key={idx}>
+            {state}
           </option>
         ))}
       </select>
-      <select className="select" name="지역명" id="1">
-        {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
-            {region}
+      <select
+        className="select"
+        name="나이"
+        value={filters.age}
+        onChange={(e) => setFilters({ ...filters, age: e.target.value })}
+      >
+        {age.map((age, idx) => (
+          <option value={age !== '전체' ? age : '전체'} key={idx}>
+            {age}
           </option>
         ))}
       </select>
-      <select className="select" name="지역명" id="1">
-        {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
-            {region}
+      <select
+        className="select"
+        name="성별"
+        value={filters.gender}
+        onChange={(e) => setFilters({ ...filters, gender: e.target.value })}
+      >
+        {gender.map((gender, idx) => (
+          <option value={gender !== '전체' ? gender : '전체'} key={idx}>
+            {gender}
           </option>
         ))}
       </select>
-      <select className="select" name="지역명" id="1">
-        {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
-            {region}
+      <select
+        className="select"
+        name="중성화"
+        value={filters.neut}
+        onChange={(e) => setFilters({ ...filters, neut: e.target.value })}
+      >
+        {neut.map((neut, idx) => (
+          <option value={neut !== '전체' ? neut : '전체'} key={idx}>
+            {neut}
           </option>
         ))}
       </select>
-      <select className="select" name="지역명" id="1">
-        {regions.map((region, idx) => (
-          <option value={region !== '시도군' ? region : ''} key={idx}>
-            {region}
+      <select
+        className="select"
+        name="지역명"
+        value={filters.kind}
+        onChange={(e) => setFilters({ ...filters, kind: e.target.value })}
+      >
+        {kind.map((kind, idx) => (
+          <option value={kind !== '전체' ? kind : '전체'} key={idx}>
+            {kind}
           </option>
         ))}
       </select>
