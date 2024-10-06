@@ -32,6 +32,10 @@ export default function PetListpage() {
     neut: '전체',
   });
 
+  const handleTextClick = () => {
+    console.log(filteredData);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       // const KEY = process.env.REACT_APP_KEY;
@@ -59,8 +63,7 @@ export default function PetListpage() {
         (filters.kind === '전체' ||
           (filters.kind === '강아지' && item.SPECIES_NM.includes('개')) ||
           (filters.kind === '고양이' && item.SPECIES_NM.includes('고양이')) ||
-          (filters.kind === '고양이' &&
-            item.SPECIES_NM.includes('기타축종'))) &&
+          (filters.kind === '그외' && item.SPECIES_NM.includes('기타축종'))) &&
         (filters.age === '전체' ||
           (filters.age === '1세미만' && petAge === 0) ||
           (filters.age === '1살~5살' && petAge >= 1 && petAge <= 4) ||
