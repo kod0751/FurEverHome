@@ -40,6 +40,26 @@ const ListCardImage = styled.div`
   }
 `;
 
+const calculateAge = (birthInfo) => {
+  const currentYear = new Date().getFullYear();
+
+  // 출생 연도 추출 (2024(60일 미만)(년생) 형식에서 연도만 가져오기)
+  const birthYearMatch = birthInfo.match(/(\d{4})/);
+  if (birthYearMatch) {
+    const birthYear = parseInt(birthYearMatch[0], 10);
+    let age = currentYear - birthYear;
+
+    // 만약 60일 미만이라면 나이를 0으로 설정
+    if (birthInfo.includes('60일 미만')) {
+      age = 0;
+    }
+
+    return age;
+  }
+
+  return '정보 없음'; // 출생 연도 정보가 없는 경우 처리
+};
+
 export default function Card({ data }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const navigate = useNavigate();
@@ -97,7 +117,7 @@ export default function Card({ data }) {
       </div>
       <div>
         <span>나이</span>
-        <p>{data.AGE_INFO}</p>
+        <p>{calculateAge(data.AGE_INFO)}살</p>
       </div>
       <div>
         <span>시도군</span>

@@ -8,19 +8,50 @@ import PetResult from '../components/layout/FindPet/PetResult';
 
 export default function FindPetPage() {
   const [step, setStep] = useState(0);
+  // 각 단계에서 선택한 데이터를 담을 state
+  const [petData, setPetData] = useState({
+    kind: '', // 동물 종류
+    gender: '', // 성별
+    weight: '', // 체중
+    color: '', // 색상
+  });
 
-  const handleKindChange = (kind) => {
-    console.log('kind', kind);
+  const handleNextStep = () => {
+    setStep((prevStep) => prevStep + 1);
   };
 
   return (
     <div>
-      {step === 0 ? <PetKind onNext={handleKindChange} /> : null}
-      {step === 1 ? <PetGender /> : null}
-      {step === 2 ? <PetWeight /> : null}
-      {step === 3 ? <PetColor /> : null}
-      {step === 4 ? <PetLoad /> : null}
-      {step === 5 ? <PetResult /> : null}
+      {step === 0 && (
+        <PetKind
+          petData={petData}
+          setPetData={setPetData}
+          onNext={handleNextStep}
+        />
+      )}
+      {step === 1 && (
+        <PetGender
+          petData={petData}
+          setPetData={setPetData}
+          onNext={handleNextStep}
+        />
+      )}
+      {step === 2 && (
+        <PetWeight
+          petData={petData}
+          setPetData={setPetData}
+          onNext={handleNextStep}
+        />
+      )}
+      {step === 3 && (
+        <PetColor
+          petData={petData}
+          setPetData={setPetData}
+          onNext={handleNextStep}
+        />
+      )}
+      {step === 4 && <PetLoad onNext={handleNextStep} />}
+      {step === 5 && <PetResult petData={petData} setStep={setStep} />}
     </div>
   );
 }

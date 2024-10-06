@@ -1,6 +1,7 @@
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
+import { useEffect } from 'react';
 
 const TextArea = styled.div`
   display: flex;
@@ -18,7 +19,17 @@ const TextArea = styled.div`
   }
 `;
 
-export default function PetLoad() {
+export default function PetLoad({ onNext }) {
+  useEffect(() => {
+    // 3초 후에 onNext를 호출하여 다음 단계로 이동
+    const timer = setTimeout(() => {
+      onNext();
+    }, 3000); // 3000ms = 3초
+
+    // 컴포넌트가 언마운트되면 타이머를 정리
+    return () => clearTimeout(timer);
+  }, [onNext]);
+
   return (
     <>
       <ThemeProvider theme={theme}>

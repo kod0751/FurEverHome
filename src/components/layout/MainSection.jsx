@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SectionBlock = styled.div`
@@ -41,6 +42,7 @@ const SectionBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   button img {
     width: 2rem;
@@ -60,10 +62,12 @@ export default function MainSection() {
         </span>
         <p>지금 당신의 따듯한 마음을 기다리는 친구들이 있습니다.</p>
         <p>유기동물 입양으로 가족이 되어주세요.</p>
-        <button>
-          나의 반려동물 찾기
-          <img src="./src/assets/Dog print.png" />
-        </button>
+        <Link to="/find">
+          <button>
+            나의 반려동물 찾기
+            <img src="./src/assets/Dog print.png" />
+          </button>
+        </Link>
       </div>
       <img src="./src/assets/Group 382.png" alt="" />
     </SectionBlock>

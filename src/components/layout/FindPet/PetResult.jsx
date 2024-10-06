@@ -2,7 +2,9 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
 import ModalSection from '../ModalSection';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import ResultCard from '../../common/ResultCard';
 
 const TextArea = styled.div`
   display: flex;
@@ -14,56 +16,6 @@ const TextArea = styled.div`
   color: ${({ theme }) => theme.color.black};
   padding-top: 5rem;
   gap: 1rem;
-`;
-
-const CardArea = styled.div`
-  width: 80%;
-  padding-top: 8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin: 0 auto;
-  font-family: 'NanumSquareNeoExtraBold';
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  color: ${({ theme }) => theme.color.black};
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.4rem;
-  }
-
-  .text {
-    width: 10rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .centerDiv {
-    transform: translateY(-50px);
-  }
-
-  button {
-    width: 8rem;
-    height: 2rem;
-    background-color: white;
-    border: 1px solid #47b2ff;
-    font-family: 'NanumSquareNeoExtraBold';
-    font-size: ${({ theme }) => theme.fontSize.md};
-    color: ${({ theme }) => theme.color.skyblue};
-    border-radius: 1rem;
-  }
-`;
-
-const ImageArea = styled.div`
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  border: 4px solid #47b2ff;
 `;
 
 const ButtonArea = styled.div`
@@ -84,6 +36,7 @@ const ButtonArea = styled.div`
     color: #7f7f7f;
     font-family: 'NanumSquareNeoExtraBold';
     font-size: ${({ theme }) => theme.fontSize.md};
+    cursor: pointer;
   }
 
   .retest {
@@ -94,10 +47,13 @@ const ButtonArea = styled.div`
     color: ${({ theme }) => theme.color.white};
     font-family: 'NanumSquareNeoExtraBold';
     font-size: ${({ theme }) => theme.fontSize.md};
+    cursor: pointer;
   }
 `;
 
-export default function PetResult() {
+export default function PetResult({ petData, setStep }) {
+  const [items, setItems] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 모달 열기 핸들러
@@ -110,50 +66,140 @@ export default function PetResult() {
     setIsModalOpen(false);
   };
 
+  const textclick = () => {
+    console.log(filteredData);
+  };
+
+  const reStart = () => {
+    setStep(0);
+    setFilteredData([]);
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // const KEY = process.env.REACT_APP_KEY;
+      const { data } = await axios.get(
+        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&Type=json&pSize=1000`
+      );
+      setItems(data.AbdmAnimalProtect[1].row); // 가져온 데이터를 상태에 저장
+      setFilteredData(filteredData);
+    };
+
+    fetchData(); // 함수 호출
+  }, []); // 컴포넌트가 처음 렌더링될 때 한 번만 실행
+
+  useEffect(() => {
+    const newFilteredData = items.filter((item) => {
+      const whiteColorKeywords = ['아이보리', '크림', '백색', '백', '흰'];
+      const blackColorKeywords = [
+        '흑색',
+        '흑갈',
+        '검정',
+        '회흑',
+        '흑',
+        '블랙탄',
+      ];
+      const greyColorKeywords = ['회백색', '검/흰', '흰/검', '쥐색'];
+      const brownColorKeywords = [
+        '흰색,갈색',
+        '흰,갈',
+        '갈색흰색',
+        '갈색,베이지',
+        '옅은갈색',
+        '연갈',
+        '베이지색',
+        '초코',
+        '갈',
+      ];
+      const goldColorKeywords = ['노랑색', '황색', '크림색', '치즈색', '치즈'];
+      const threeColorKeywords = ['흰색,검정,갈색', '삼색', '백흑갈색'];
+      const multiColorKeywords = ['고등어', '반점무늬'];
+      const bwColorKeywords = [
+        '검백색',
+        '얼룩',
+        '검/흰',
+        '검.백',
+        '검정흰색',
+        '검줄/흰',
+        '백흑색',
+      ];
+      return (
+        // 종류 필터 (강아지, 고양이, 그외)
+        (petData.kind === '강아지' &&
+          item.SPECIES_NM.includes('개') &&
+          petData.kind === '고양이' &&
+          item.SPECIES_NM.includes('고양이') &&
+          petData.kind === '그외' &&
+          item.SPECIES_NM.includes('기타축종') &&
+          // 성별 필터 (여아, 남아)
+          (petData.gender === '여아'
+            ? item.SEX_NM === 'F'
+            : item.SEX_NM === 'M') &&
+          // 무게 필터
+          ((petData.weight === '5' &&
+            parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 5) ||
+            (petData.weight === '10' &&
+              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 5 &&
+              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 10) ||
+            (petData.weight === '15' &&
+              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 10 &&
+              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 15) ||
+            (petData.weight === '20' &&
+              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 15)) &&
+          // 색상 필터
+          petData.color === '흰색' &&
+          whiteColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '검정' &&
+          blackColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '회색' &&
+          greyColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '갈색' &&
+          brownColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '금색' &&
+          goldColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '삼색' &&
+          threeColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '고등어색' &&
+          multiColorKeywords.some((keyword) =>
+            item.COLOR_NM.includes(keyword)
+          )) ||
+        (petData.color === '흑백' &&
+          bwColorKeywords.some((keyword) => item.COLOR_NM.includes(keyword)))
+      );
+    });
+
+    setFilteredData(newFilteredData); // 필터링된 데이터를 업데이트
+  }, [petData, items]);
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <Header />
         <TextArea>
-          <span>당신의 운명의 반려동물을 찾았어요!</span>
+          <span onClick={textclick}>당신의 운명의 반려동물을 찾았어요!</span>
         </TextArea>
-        <CardArea>
-          <div className="card">
-            <ImageArea>
-              <img src="" alt="" />
-            </ImageArea>
-            <div className="text">
-              <span>한국 고양이</span>
-              <span>1살</span>
-            </div>
-            <button>보러가기</button>
-          </div>
-          <div className="card centerDiv">
-            <ImageArea>
-              <img src="" alt="" />
-            </ImageArea>
-            <div className="text">
-              <span>믹스견</span>
-              <span>1살</span>
-            </div>
-            <button>보러가기</button>
-          </div>
-          <div className="card">
-            <ImageArea>
-              <img src="" alt="" />
-            </ImageArea>
-            <div className="text">
-              <span>믹스견</span>
-              <span>1살</span>
-            </div>
-            <button>보러가기</button>
-          </div>
-        </CardArea>
+
+        <ResultCard filteredData={filteredData} />
         <ButtonArea>
           <button className="result" onClick={handleModalOpen}>
             결과 설명듣기
           </button>
-          <button className="retest">테스트 다시 하기</button>
+          <button className="retest" onClick={reStart}>
+            테스트 다시 하기
+          </button>
         </ButtonArea>
         {/* 모달이 열렸을 때만 ModalSection을 렌더링 */}
         {isModalOpen && <ModalSection onClose={handleModalClose} />}

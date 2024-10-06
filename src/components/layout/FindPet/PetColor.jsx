@@ -2,6 +2,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
 import Progressbar from '../../common/progressbar';
+import { useState } from 'react';
 
 const TextArea = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ const ButtonBox = styled.div`
     font-family: 'NanumSquareNeoBold';
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.color.black};
+    &.active {
+      border-color: #47b2ff;
+      box-shadow: 0 0 10px rgba(71, 178, 255, 0.7);
+    }
   }
 
   img {
@@ -64,6 +69,7 @@ const NextButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   button img {
     width: 2rem;
@@ -73,7 +79,27 @@ const NextButton = styled.div`
   }
 `;
 
-export default function PetColor() {
+export default function PetColor({ petData, setPetData, onNext }) {
+  const [activeButton, setActiveButton] = useState('');
+  const [selectedColor, setSelectedColor] = useState(petData.color);
+
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+    setActiveButton(color);
+  };
+
+  const handleNextClick = () => {
+    // 선택한 데이터를 메인 state에 저장
+    setPetData((prevData) => ({
+      ...prevData,
+      color: selectedColor,
+    }));
+
+    console.log(petData);
+    // 다음 단계로 이동
+    onNext();
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Header />
@@ -83,43 +109,67 @@ export default function PetColor() {
         <span>어떤 색깔이 좋을까? 3개이상 골라보자!</span>
       </TextArea>
       <ButtonBox>
-        <button>
+        <button
+          onClick={() => handleColorSelect('흰색')}
+          className={activeButton === '흰색' ? 'active' : ''}
+        >
           <img src="./src/assets/white.png" alt="흰색" />
           흰색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('검은색')}
+          className={activeButton === '검은색' ? 'active' : ''}
+        >
           <img src="./src/assets/black.png" alt="검은색" />
           검은색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('회색')}
+          className={activeButton === '회색' ? 'active' : ''}
+        >
           <img src="./src/assets/grey.png" alt="회색" />
           회색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('갈색')}
+          className={activeButton === '갈색' ? 'active' : ''}
+        >
           <img src="./src/assets/brown.png" alt="갈색" />
           갈색
         </button>
       </ButtonBox>
       <ButtonBox>
-        <button>
+        <button
+          onClick={() => handleColorSelect('금색')}
+          className={activeButton === '금색' ? 'active' : ''}
+        >
           <img src="./src/assets/goldColor.png" alt="금색" />
           금색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('삼색')}
+          className={activeButton === '삼색' ? 'active' : ''}
+        >
           <img src="./src/assets/threeColor.png" alt="삼색" />
           삼색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('고등어색')}
+          className={activeButton === '고등어색' ? 'active' : ''}
+        >
           <img src="./src/assets/multiColor.png" alt="고등어색" />
           고등어색
         </button>
-        <button>
+        <button
+          onClick={() => handleColorSelect('흑백')}
+          className={activeButton === '흑백' ? 'active' : ''}
+        >
           <img src="./src/assets/bwColor.png" alt="흑백" />
           흑백
         </button>
       </ButtonBox>
       <NextButton>
-        <button>
+        <button onClick={handleNextClick}>
           결과보기
           <img src="./src/assets/Dog print.png" />
         </button>

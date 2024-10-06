@@ -2,6 +2,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
 import Progressbar from '../../common/progressbar';
+import { useState } from 'react';
 
 const TextArea = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ const ButtonBox = styled.div`
     font-family: 'NanumSquareNeoBold';
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.color.black};
+    &.active {
+      border-color: #47b2ff;
+      box-shadow: 0 0 10px rgba(71, 178, 255, 0.7);
+    }
   }
 
   img {
@@ -65,6 +70,7 @@ const NextButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   button img {
     width: 2rem;
@@ -74,7 +80,27 @@ const NextButton = styled.div`
   }
 `;
 
-export default function PetGender() {
+export default function PetGender({ petData, setPetData, onNext }) {
+  const [activeButton, setActiveButton] = useState('');
+  const [selectedGender, setSelectedGender] = useState(petData.gender);
+
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+    setActiveButton(gender);
+  };
+
+  const handleNextClick = () => {
+    // 선택한 데이터를 메인 state에 저장
+    setPetData((prevData) => ({
+      ...prevData,
+      gender: selectedGender,
+    }));
+
+    console.log(petData);
+    // 다음 단계로 이동
+    onNext();
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -85,17 +111,23 @@ export default function PetGender() {
           <span>금고 안에 어떤게 한가득 쌓여 있을까?</span>
         </TextArea>
         <ButtonBox>
-          <button>
+          <button
+            onClick={() => handleGenderSelect('남아')}
+            className={activeButton === '남아' ? 'active' : ''}
+          >
             <img src="./src/assets/gold.png" alt="황금" />
             빛나는 황금
           </button>
-          <button>
+          <button
+            onClick={() => handleGenderSelect('여아')}
+            className={activeButton === '여아' ? 'active' : ''}
+          >
             <img src="./src/assets/diamond.png" alt="보석" />
             화려한 보석
           </button>
         </ButtonBox>
         <NextButton>
-          <button>
+          <button onClick={handleNextClick}>
             다음
             <img src="./src/assets/Dog print.png" />
           </button>

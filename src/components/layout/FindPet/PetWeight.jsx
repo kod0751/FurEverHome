@@ -2,6 +2,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
 import Progressbar from '../../common/progressbar';
+import { useState } from 'react';
 
 const TextArea = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ const ButtonBox = styled.div`
     font-family: 'NanumSquareNeoBold';
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.color.black};
+    &.active {
+      border-color: #47b2ff;
+      box-shadow: 0 0 10px rgba(71, 178, 255, 0.7);
+    }
   }
 
   img {
@@ -73,7 +78,27 @@ const NextButton = styled.div`
     vertical-align: middle;
   }
 `;
-export default function PetWeight() {
+export default function PetWeight({ petData, setPetData, onNext }) {
+  const [activeButton, setActiveButton] = useState('');
+  const [selectedWeight, setSelectedWeight] = useState(petData.weight);
+
+  const handleWeightSelect = (weight) => {
+    setSelectedWeight(weight);
+    setActiveButton(weight);
+  };
+
+  const handleNextClick = () => {
+    // 선택한 데이터를 메인 state에 저장
+    setPetData((prevData) => ({
+      ...prevData,
+      weight: selectedWeight,
+    }));
+
+    console.log(petData);
+    // 다음 단계로 이동
+    onNext();
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -84,25 +109,37 @@ export default function PetWeight() {
           <span>이 문의 크기는 얼마나 클까?</span>
         </TextArea>
         <ButtonBox>
-          <button>
+          <button
+            onClick={() => handleWeightSelect('5')}
+            className={activeButton === '5' ? 'active' : ''}
+          >
             <img src="./src/assets/key.png" alt="열쇠" />
             열쇠 크기
           </button>
-          <button>
+          <button
+            onClick={() => handleWeightSelect('10')}
+            className={activeButton === '10' ? 'active' : ''}
+          >
             <img src="./src/assets/carrier.png" alt="캐리어" />
             캐리어 크기
           </button>
-          <button>
+          <button
+            onClick={() => handleWeightSelect('15')}
+            className={activeButton === '15' ? 'active' : ''}
+          >
             <img src="./src/assets/car.png" alt="자동차" />
             자동차 크기
           </button>
-          <button>
+          <button
+            onClick={() => handleWeightSelect('20')}
+            className={activeButton === '20' ? 'active' : ''}
+          >
             <img src="./src/assets/house.png" alt="집" />
             집채
           </button>
         </ButtonBox>
         <NextButton>
-          <button>
+          <button onClick={handleNextClick}>
             다음
             <img src="./src/assets/Dog print.png" />
           </button>

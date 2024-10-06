@@ -2,6 +2,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
 import Progressbar from '../../common/progressbar';
+import { useState } from 'react';
 
 const TextArea = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ const ButtonBox = styled.div`
     font-family: 'NanumSquareNeoBold';
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.color.black};
+    &.active {
+      border-color: #47b2ff;
+      box-shadow: 0 0 10px rgba(71, 178, 255, 0.7);
+    }
   }
 
   img {
@@ -65,17 +70,37 @@ const NextButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   button img {
     width: 2rem;
     height: 2rem;
     margin-left: 0.5rem;
     vertical-align: middle;
-    cursor: pointer;
   }
 `;
 
-export default function PetKind({ onNext }) {
+export default function PetKind({ petData, setPetData, onNext }) {
+  const [activeButton, setActiveButton] = useState('');
+  const [selectedKind, setSelectedKind] = useState(petData.kind);
+
+  const handleKindSelect = (kind) => {
+    setSelectedKind(kind);
+    setActiveButton(kind);
+  };
+
+  const handleNextClick = () => {
+    // 선택한 데이터를 메인 state에 저장
+    setPetData((prevData) => ({
+      ...prevData,
+      kind: selectedKind,
+    }));
+
+    console.log(petData);
+    // 다음 단계로 이동
+    onNext();
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -86,24 +111,29 @@ export default function PetKind({ onNext }) {
           <span>이 동물은 무엇일까?</span>
         </TextArea>
         <ButtonBox>
-          <button>
+          <button
+            onClick={() => handleKindSelect('강아지')}
+            className={activeButton === '강아지' ? 'active' : ''}
+          >
             <img src="./src/assets/dog.png" alt="강아지" />
             강아지
           </button>
-          <button>
+          <button
+            onClick={() => handleKindSelect('고양이')}
+            className={activeButton === '고양이' ? 'active' : ''}
+          >
             <img src="./src/assets/cat.png" alt="고양이" />
             고양이
           </button>
-          <button>
+          <button
+            onClick={() => handleKindSelect('그외')}
+            className={activeButton === '그외' ? 'active' : ''}
+          >
             <img src="./src/assets/rabbit.png" alt="그 외" />그 외
           </button>
         </ButtonBox>
         <NextButton>
-          <button
-            onClick={(e) => {
-              onNext(e.target.value);
-            }}
-          >
+          <button onClick={handleNextClick}>
             다음
             <img src="./src/assets/Dog print.png" />
           </button>
