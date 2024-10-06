@@ -49,7 +49,9 @@ export default function Header() {
           <li>
             <Link to="/location">주변 보호소 찾기</Link>
           </li>
-          <li>나의 관심동물</li>
+          <li>
+            <Link to="/mypet">나의 관심동물</Link>
+          </li>
         </ul>
       </HeaderSection>
     </div>

@@ -81,7 +81,7 @@ export default function PetListpage() {
     });
 
     setFilteredData(newFilteredData); // 필터링된 데이터를 업데이트
-    setPage(1); // 필터링을 하면 첫페이지로
+    setPage(1); // 필터링을 하면 첫페이지부터 보여주기
   }, [filters, items]);
 
   return (
@@ -100,7 +100,7 @@ export default function PetListpage() {
         <PageNation
           value={page}
           onChange={setPage}
-          total={filteredData.length / 15 + 1}
+          total={Math.ceil(filteredData.length / 15)}
         />
       </ThemeProvider>
     </>
