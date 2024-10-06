@@ -7,6 +7,7 @@ import PetListpage from './pages/PetList';
 import LocationPage from './pages/Location';
 import FindPetPage from './pages/FindPet';
 import MyPetPage from './pages/MyPet';
+import PetDetailPage from './pages/PetDetail';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/location" Component={LocationPage} />
         <Route path="/find" Component={FindPetPage} />
         <Route path="/mypet" Component={MyPetPage} />
+        <Route path="/detail" Component={PetDetailPage} />
       </Routes>
     </BrowserRouter>
   );
