@@ -22,28 +22,25 @@ const SwiperArea = styled.div`
 export default function SwiperSection() {
   const [swiperItems, setSwiperItems] = useState([]);
 
-  const formatDateToYYYYMMDD = (date) => {
-    const year = date.getFullYear();
-    let month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더함
-    let day = date.getDate().toString().padStart(2, '0'); // 날짜도 2자리로 맞춤
+  const today = new Date();
 
-    return `${year}${month}${day}`;
-  };
+  // 내일 날짜로 설정
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
 
-  const getTomorrow = () => {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    return tomorrow;
-  };
+  // YYYYMMDD 형식으로 변환
+  const year = tomorrow.getFullYear();
+  const month = String(tomorrow.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const day = String(tomorrow.getDate()).padStart(2, '0'); // 날짜가 한 자리수면 0으로 채움
+
+  // 최종 값
+  const tomorrowDate = `${year}${month}${day}`;
 
   useEffect(() => {
     const fetchData = async () => {
-      const tomorrow = getTomorrow();
-      const formattedDate = formatDateToYYYYMMDD(tomorrow);
       // const KEY = process.env.REACT_APP_KEY;
       const { data } = await axios.get(
-        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&PBLANC_END_DE=${formattedDate}&Type=json&pSize=20`
+        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&PBLANC_END_DE=${tomorrowDate}&Type=json&pSize=20`
       );
       setSwiperItems(data.AbdmAnimalProtect[1].row); // 가져온 데이터를 상태에 저장
     };
