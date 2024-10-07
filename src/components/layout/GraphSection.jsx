@@ -19,7 +19,6 @@ const ctx = document.getElementById('myChart');
 new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ['Red', 'Blue', 'Yellow'],
     datasets: [
       {
         label: 'My First Dataset',

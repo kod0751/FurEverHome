@@ -51,7 +51,7 @@ const ButtonArea = styled.div`
   }
 `;
 
-export default function PetResult({ petData, setStep }) {
+export default function PetResult({ petData, setPetData, setStep }) {
   const [items, setItems] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,10 +67,16 @@ export default function PetResult({ petData, setStep }) {
   };
 
   const textclick = () => {
-    console.log(filteredData);
+    console.log(petData);
   };
 
   const reStart = () => {
+    setPetData({
+      kind: '', // 동물 종류 초기화
+      gender: '', // 성별 초기화
+      weight: '', // 체중 초기화
+      color: '', // 색상 초기화
+    });
     setStep(0);
     setFilteredData([]);
     setIsModalOpen(false);
@@ -165,29 +171,27 @@ export default function PetResult({ petData, setStep }) {
         }
       });
 
+      // 무게 필터
+      const weightValue = parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]);
+      const weightMatches =
+        (petData.weight === '5' && weightValue < 5) ||
+        (petData.weight === '10' && weightValue >= 5 && weightValue < 10) ||
+        (petData.weight === '15' && weightValue >= 10 && weightValue < 15) ||
+        (petData.weight === '20' && weightValue >= 15);
+
       return (
-        // 종류 필터 (강아지, 고양이, 그외)
-        (petData.kind === '강아지' && item.SPECIES_NM.includes('개')) ||
-        (petData.kind === '고양이' && item.SPECIES_NM.includes('고양이')) ||
-        (petData.kind === '그외' &&
-          item.SPECIES_NM.includes('기타축종') &&
-          // 성별 필터 (여아, 남아)
-          (petData.gender === '여아'
-            ? item.SEX_NM === 'F'
-            : item.SEX_NM === 'M') &&
-          // 무게 필터
-          ((petData.weight === '5' &&
-            parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 5) ||
-            (petData.weight === '10' &&
-              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 5 &&
-              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 10) ||
-            (petData.weight === '15' &&
-              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 10 &&
-              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 15) ||
-            (petData.weight === '20' &&
-              parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 15)) &&
-          // 색상 필터 (petData.color 배열에 있는 색상 중 하나라도 일치해야 함)
-          colorMatches)
+        // 종류 필터 (강아지, 고양이, 그외) - AND 연산자로 변경
+        ((petData.kind === '강아지' && item.SPECIES_NM.includes('개')) ||
+          (petData.kind === '고양이' && item.SPECIES_NM.includes('고양이')) ||
+          (petData.kind === '그외' && item.SPECIES_NM.includes('기타축종'))) &&
+        // 성별 필터 (여아, 남아)
+        (petData.gender === '여아'
+          ? item.SEX_NM === 'F'
+          : item.SEX_NM === 'M') &&
+        // 무게 필터
+        weightMatches &&
+        // 색상 필터
+        colorMatches
       );
     });
 

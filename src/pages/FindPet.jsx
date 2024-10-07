@@ -51,7 +51,13 @@ export default function FindPetPage() {
         />
       )}
       {step === 4 && <PetLoad onNext={handleNextStep} />}
-      {step === 5 && <PetResult petData={petData} setStep={setStep} />}
+      {step === 5 && (
+        <PetResult
+          petData={petData}
+          setPetData={setPetData}
+          setStep={setStep}
+        />
+      )}
     </div>
   );
 }
