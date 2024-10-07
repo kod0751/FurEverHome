@@ -51,28 +51,31 @@ const ButtonBox = styled.div`
   }
 `;
 
-const NextButton = styled.div`
+const NextButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
+`;
 
-  button {
-    width: 15rem;
-    height: 3.4rem;
-    margin-top: 2rem;
-    font-family: 'NanumSquareNeoExtraBold';
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    background-color: ${({ theme }) => theme.color.skyblue};
-    color: ${({ theme }) => theme.color.white};
-    border-radius: 1.7rem;
-    border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  button img {
+const NextButtonStyled = styled.button`
+  width: 15rem;
+  height: 3.4rem;
+  margin-top: 2rem;
+  font-family: 'NanumSquareNeoExtraBold';
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? '#ccc' : theme.color.skyblue};
+  color: ${({ theme }) => theme.color.white};
+  border-radius: 1.7rem;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ${({ disabled }) =>
+    disabled ? 'not-allowed' : 'pointer'}; /* 비활성화 시 포인터 변경 */
+
+  img {
     width: 2rem;
     height: 2rem;
     margin-left: 0.5rem;
@@ -126,12 +129,15 @@ export default function PetGender({ petData, setPetData, onNext }) {
             화려한 보석
           </button>
         </ButtonBox>
-        <NextButton>
-          <button onClick={handleNextClick}>
+        <NextButtonWrapper>
+          <NextButtonStyled
+            onClick={handleNextClick}
+            disabled={!activeButton} /* activeButton이 없을 때 버튼 비활성화 */
+          >
             다음
-            <img src="/img/Dog print.png" />
-          </button>
-        </NextButton>
+            <img src="/img/Dog print.png" alt="다음" />
+          </NextButtonStyled>
+        </NextButtonWrapper>
       </ThemeProvider>
     </>
   );

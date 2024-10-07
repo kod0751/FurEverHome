@@ -51,27 +51,31 @@ const ButtonBox = styled.div`
   }
 `;
 
-const NextButton = styled.div`
+const NextButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
+`;
 
-  button {
-    width: 15rem;
-    height: 3.4rem;
-    margin-top: 2rem;
-    font-family: 'NanumSquareNeoExtraBold';
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    background-color: ${({ theme }) => theme.color.skyblue};
-    color: ${({ theme }) => theme.color.white};
-    border-radius: 1.7rem;
-    border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  button img {
+const NextButtonStyled = styled.button`
+  width: 15rem;
+  height: 3.4rem;
+  margin-top: 2rem;
+  font-family: 'NanumSquareNeoExtraBold';
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? '#ccc' : theme.color.skyblue}; /* 비활성화 시 회색 */
+  color: ${({ theme }) => theme.color.white};
+  border-radius: 1.7rem;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ${({ disabled }) =>
+    disabled ? 'not-allowed' : 'pointer'}; /* 비활성화 시 포인터 변경 */
+
+  img {
     width: 2rem;
     height: 2rem;
     margin-left: 0.5rem;
@@ -80,19 +84,36 @@ const NextButton = styled.div`
 `;
 
 export default function PetColor({ petData, setPetData, onNext }) {
-  const [activeButton, setActiveButton] = useState('');
-  const [selectedColor, setSelectedColor] = useState(petData.color);
+  const [activeButtons, setActiveButtons] = useState([]); // 선택한 색상들을 저장하는 배열
+  const [selectedColors, setSelectedColors] = useState(petData.color || []);
 
   const handleColorSelect = (color) => {
-    setSelectedColor(color);
-    setActiveButton(color);
+    setSelectedColors((prevSelectedColors) => {
+      if (prevSelectedColors.includes(color)) {
+        return prevSelectedColors.filter(
+          (selectedColor) => selectedColor !== color
+        );
+      } else {
+        return [...prevSelectedColors, color];
+      }
+    });
+
+    setActiveButtons((prevActiveButtons) => {
+      if (prevActiveButtons.includes(color)) {
+        return prevActiveButtons.filter(
+          (activeButton) => activeButton !== color
+        );
+      } else {
+        return [...prevActiveButtons, color];
+      }
+    });
   };
 
   const handleNextClick = () => {
     // 선택한 데이터를 메인 state에 저장
     setPetData((prevData) => ({
       ...prevData,
-      color: selectedColor,
+      color: selectedColors,
     }));
 
     console.log(petData);
@@ -111,28 +132,28 @@ export default function PetColor({ petData, setPetData, onNext }) {
       <ButtonBox>
         <button
           onClick={() => handleColorSelect('흰색')}
-          className={activeButton === '흰색' ? 'active' : ''}
+          className={activeButtons.includes('흰색') ? 'active' : ''}
         >
           <img src="/img/white.png" alt="흰색" />
           흰색
         </button>
         <button
           onClick={() => handleColorSelect('검은색')}
-          className={activeButton === '검은색' ? 'active' : ''}
+          className={activeButtons.includes('검은색') ? 'active' : ''}
         >
           <img src="/img/black.png" alt="검은색" />
           검은색
         </button>
         <button
           onClick={() => handleColorSelect('회색')}
-          className={activeButton === '회색' ? 'active' : ''}
+          className={activeButtons.includes('회색') ? 'active' : ''}
         >
           <img src="/img/grey.png" alt="회색" />
           회색
         </button>
         <button
           onClick={() => handleColorSelect('갈색')}
-          className={activeButton === '갈색' ? 'active' : ''}
+          className={activeButtons.includes('갈색') ? 'active' : ''}
         >
           <img src="/img/brown.png" alt="갈색" />
           갈색
@@ -141,39 +162,42 @@ export default function PetColor({ petData, setPetData, onNext }) {
       <ButtonBox>
         <button
           onClick={() => handleColorSelect('금색')}
-          className={activeButton === '금색' ? 'active' : ''}
+          className={activeButtons.includes('금색') ? 'active' : ''}
         >
           <img src="/img/goldColor.png" alt="금색" />
           금색
         </button>
         <button
           onClick={() => handleColorSelect('삼색')}
-          className={activeButton === '삼색' ? 'active' : ''}
+          className={activeButtons.includes('삼색') ? 'active' : ''}
         >
           <img src="/img/threeColor.png" alt="삼색" />
           삼색
         </button>
         <button
           onClick={() => handleColorSelect('고등어색')}
-          className={activeButton === '고등어색' ? 'active' : ''}
+          className={activeButtons.includes('고등어색') ? 'active' : ''}
         >
           <img src="/img/multiColor.png" alt="고등어색" />
           고등어색
         </button>
         <button
           onClick={() => handleColorSelect('흑백')}
-          className={activeButton === '흑백' ? 'active' : ''}
+          className={activeButtons.includes('흑백') ? 'active' : ''}
         >
           <img src="/img/bwColor.png" alt="흑백" />
           흑백
         </button>
       </ButtonBox>
-      <NextButton>
-        <button onClick={handleNextClick}>
+      <NextButtonWrapper>
+        <NextButtonStyled
+          onClick={handleNextClick}
+          disabled={activeButtons.length < 3} // 3개 이상의 색상이 선택되었을 때만 버튼 활성화
+        >
           결과보기
-          <img src="/img/Dog print.png" />
-        </button>
-      </NextButton>
+          <img src="/img/Dog print.png" alt="결과보기" />
+        </NextButtonStyled>
+      </NextButtonWrapper>
     </ThemeProvider>
   );
 }

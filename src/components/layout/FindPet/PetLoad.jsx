@@ -35,10 +35,10 @@ export default function PetLoad({ onNext }) {
       <ThemeProvider theme={theme}>
         <Header />
         <TextArea>
-          <img src="./src/assets/Group 540.png" alt="이미지" />
+          <img src="/img/Group 540.png" alt="이미지" />
           <span>어떤 동물이</span>
           <span>당신에게 찾아올까요?</span>
-          <img className="load" src="./src/assets/Load.png" alt="로딩바" />
+          <img className="load" src="/img/Load.png" alt="로딩바" />
         </TextArea>
       </ThemeProvider>
     </>
