@@ -65,11 +65,11 @@ export default function MainSection() {
         <Link to="/find">
           <button>
             나의 반려동물 찾기
-            <img src="/images/Dog print.png" alt="이미지" />
+            <img src="/img/Dog print.png" alt="이미지" />
           </button>
         </Link>
       </div>
-      <img src="./src/assets/Group 382.png" alt="이미지" />
+      <img src="/img/Group 382.png" alt="이미지" />
     </SectionBlock>
   );
 }

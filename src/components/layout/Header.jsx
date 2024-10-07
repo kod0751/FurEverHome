@@ -38,7 +38,7 @@ export default function Header() {
         <div className="logo">
           <Link to="/">
             발바닥
-            <img src="./src/assets/Group 540.png" />
+            <img src="/img/Group 540.png" alt="logo" />
             구조대
           </Link>
         </div>

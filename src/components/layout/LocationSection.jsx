@@ -132,7 +132,7 @@ export default function LocationSection({ setShelter }) {
             key={index}
             position={loc.latlng}
             image={{
-              src: './src/assets/mark.png',
+              src: '/img/mark.png',
               size: { width: 20, height: 20 },
             }}
             title={loc.title}
