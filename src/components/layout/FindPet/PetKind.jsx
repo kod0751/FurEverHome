@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../../styles/theme';
 import Header from '../Header';
-import Progressbar from '../../common/progressbar';
+import Progressbar from '../../common/Progressbar';
 import { useState } from 'react';
 
 const TextArea = styled.div`
