@@ -124,13 +124,52 @@ export default function PetResult({ petData, setStep }) {
         '검줄/흰',
         '백흑색',
       ];
+
+      // 색상 필터링
+      const colorMatches = petData.color.some((color) => {
+        switch (color) {
+          case '흰색':
+            return whiteColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '검정':
+            return blackColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '회색':
+            return greyColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '갈색':
+            return brownColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '금색':
+            return goldColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '삼색':
+            return threeColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '고등어색':
+            return multiColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          case '흑백':
+            return bwColorKeywords.some((keyword) =>
+              item.COLOR_NM.includes(keyword)
+            );
+          default:
+            return false;
+        }
+      });
+
       return (
         // 종류 필터 (강아지, 고양이, 그외)
-        (petData.kind === '강아지' &&
-          item.SPECIES_NM.includes('개') &&
-          petData.kind === '고양이' &&
-          item.SPECIES_NM.includes('고양이') &&
-          petData.kind === '그외' &&
+        (petData.kind === '강아지' && item.SPECIES_NM.includes('개')) ||
+        (petData.kind === '고양이' && item.SPECIES_NM.includes('고양이')) ||
+        (petData.kind === '그외' &&
           item.SPECIES_NM.includes('기타축종') &&
           // 성별 필터 (여아, 남아)
           (petData.gender === '여아'
@@ -147,37 +186,8 @@ export default function PetResult({ petData, setStep }) {
               parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) < 15) ||
             (petData.weight === '20' &&
               parseFloat(item.BDWGH_INFO.match(/[0-9.]+/)[0]) >= 15)) &&
-          // 색상 필터
-          petData.color === '흰색' &&
-          whiteColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '검정' &&
-          blackColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '회색' &&
-          greyColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '갈색' &&
-          brownColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '금색' &&
-          goldColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '삼색' &&
-          threeColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '고등어색' &&
-          multiColorKeywords.some((keyword) =>
-            item.COLOR_NM.includes(keyword)
-          )) ||
-        (petData.color === '흑백' &&
-          bwColorKeywords.some((keyword) => item.COLOR_NM.includes(keyword)))
+          // 색상 필터 (petData.color 배열에 있는 색상 중 하나라도 일치해야 함)
+          colorMatches)
       );
     });
 
