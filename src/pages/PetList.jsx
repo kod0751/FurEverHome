@@ -32,10 +32,6 @@ export default function PetListpage() {
     neut: '전체',
   });
 
-  const handleTextClick = () => {
-    console.log(filteredData);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       // const KEY = process.env.REACT_APP_KEY;
@@ -91,9 +87,7 @@ export default function PetListpage() {
         <SwiperSection />
         <CategorySection filters={filters} setFilters={setFilters} />
         <TextArea>
-          <span className="highlight" onClick={() => handleTextClick()}>
-            {filteredData.length}
-          </span>
+          <span className="highlight">{filteredData.length}</span>
           마리의 친구들이 기다리고 있어요
         </TextArea>
         <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />

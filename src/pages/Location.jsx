@@ -24,10 +24,6 @@ export default function LocationPage() {
     neut: '전체',
   });
 
-  const handleTextClick = () => {
-    console.log(filteredData);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       // const KEY = process.env.REACT_APP_KEY;
@@ -81,7 +77,6 @@ export default function LocationPage() {
     <>
       <ThemeProvider theme={theme}>
         <Header />
-        <span onClick={() => handleTextClick()}>text</span>
         <LocationSection setShelter={setShelter} />
         <CategorySection filters={filters} setFilters={setFilters} />
         <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
