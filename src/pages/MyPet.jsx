@@ -82,7 +82,7 @@ export default function MyPetPage() {
         {/* 북마크된 데이터가 없을 때 보여줄 내용 */}
         {bookmarkedData.length === 0 && (
           <EmptyPage>
-            <img src="./src/assets/Group 382.png" alt="동물" />
+            <img src="/img/Group 382.png" alt="동물" />
             <span>다시 보고 싶은 친구들을 추가해주세요!</span>
           </EmptyPage>
         )}

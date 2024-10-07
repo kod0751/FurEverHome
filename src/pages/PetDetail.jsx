@@ -170,7 +170,7 @@ export default function PetDetailPage() {
               lng: data.REFINE_WGS84_LOGT,
             }}
             image={{
-              src: './src/assets/mark.png',
+              src: '/img/mark.png',
               size: { width: 20, height: 20 },
             }}
             title={data.SHTER_NM}
