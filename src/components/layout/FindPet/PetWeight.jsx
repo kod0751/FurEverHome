@@ -113,35 +113,35 @@ export default function PetWeight({ petData, setPetData, onNext }) {
             onClick={() => handleWeightSelect('5')}
             className={activeButton === '5' ? 'active' : ''}
           >
-            <img src="./src/assets/key.png" alt="열쇠" />
+            <img src="/img/key.png" alt="열쇠" />
             열쇠 크기
           </button>
           <button
             onClick={() => handleWeightSelect('10')}
             className={activeButton === '10' ? 'active' : ''}
           >
-            <img src="./src/assets/carrier.png" alt="캐리어" />
+            <img src="/img/carrier.png" alt="캐리어" />
             캐리어 크기
           </button>
           <button
             onClick={() => handleWeightSelect('15')}
             className={activeButton === '15' ? 'active' : ''}
           >
-            <img src="./src/assets/car.png" alt="자동차" />
+            <img src="/img/car.png" alt="자동차" />
             자동차 크기
           </button>
           <button
             onClick={() => handleWeightSelect('20')}
             className={activeButton === '20' ? 'active' : ''}
           >
-            <img src="./src/assets/house.png" alt="집" />
+            <img src="/img/house.png" alt="집" />
             집채
           </button>
         </ButtonBox>
         <NextButton>
           <button onClick={handleNextClick}>
             다음
-            <img src="./src/assets/Dog print.png" />
+            <img src="/img/Dog print.png" />
           </button>
         </NextButton>
       </ThemeProvider>

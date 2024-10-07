@@ -115,21 +115,21 @@ export default function PetGender({ petData, setPetData, onNext }) {
             onClick={() => handleGenderSelect('남아')}
             className={activeButton === '남아' ? 'active' : ''}
           >
-            <img src="./src/assets/gold.png" alt="황금" />
+            <img src="/img/gold.png" alt="황금" />
             빛나는 황금
           </button>
           <button
             onClick={() => handleGenderSelect('여아')}
             className={activeButton === '여아' ? 'active' : ''}
           >
-            <img src="./src/assets/diamond.png" alt="보석" />
+            <img src="/img/diamond.png" alt="보석" />
             화려한 보석
           </button>
         </ButtonBox>
         <NextButton>
           <button onClick={handleNextClick}>
             다음
-            <img src="./src/assets/Dog print.png" />
+            <img src="/img/Dog print.png" />
           </button>
         </NextButton>
       </ThemeProvider>

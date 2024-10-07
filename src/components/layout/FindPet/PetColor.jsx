@@ -113,28 +113,28 @@ export default function PetColor({ petData, setPetData, onNext }) {
           onClick={() => handleColorSelect('흰색')}
           className={activeButton === '흰색' ? 'active' : ''}
         >
-          <img src="./src/assets/white.png" alt="흰색" />
+          <img src="/img/white.png" alt="흰색" />
           흰색
         </button>
         <button
           onClick={() => handleColorSelect('검은색')}
           className={activeButton === '검은색' ? 'active' : ''}
         >
-          <img src="./src/assets/black.png" alt="검은색" />
+          <img src="/img/black.png" alt="검은색" />
           검은색
         </button>
         <button
           onClick={() => handleColorSelect('회색')}
           className={activeButton === '회색' ? 'active' : ''}
         >
-          <img src="./src/assets/grey.png" alt="회색" />
+          <img src="/img/grey.png" alt="회색" />
           회색
         </button>
         <button
           onClick={() => handleColorSelect('갈색')}
           className={activeButton === '갈색' ? 'active' : ''}
         >
-          <img src="./src/assets/brown.png" alt="갈색" />
+          <img src="/img/brown.png" alt="갈색" />
           갈색
         </button>
       </ButtonBox>
@@ -143,35 +143,35 @@ export default function PetColor({ petData, setPetData, onNext }) {
           onClick={() => handleColorSelect('금색')}
           className={activeButton === '금색' ? 'active' : ''}
         >
-          <img src="./src/assets/goldColor.png" alt="금색" />
+          <img src="/img/goldColor.png" alt="금색" />
           금색
         </button>
         <button
           onClick={() => handleColorSelect('삼색')}
           className={activeButton === '삼색' ? 'active' : ''}
         >
-          <img src="./src/assets/threeColor.png" alt="삼색" />
+          <img src="/img/threeColor.png" alt="삼색" />
           삼색
         </button>
         <button
           onClick={() => handleColorSelect('고등어색')}
           className={activeButton === '고등어색' ? 'active' : ''}
         >
-          <img src="./src/assets/multiColor.png" alt="고등어색" />
+          <img src="/img/multiColor.png" alt="고등어색" />
           고등어색
         </button>
         <button
           onClick={() => handleColorSelect('흑백')}
           className={activeButton === '흑백' ? 'active' : ''}
         >
-          <img src="./src/assets/bwColor.png" alt="흑백" />
+          <img src="/img/bwColor.png" alt="흑백" />
           흑백
         </button>
       </ButtonBox>
       <NextButton>
         <button onClick={handleNextClick}>
           결과보기
-          <img src="./src/assets/Dog print.png" />
+          <img src="/img/Dog print.png" />
         </button>
       </NextButton>
     </ThemeProvider>

@@ -115,27 +115,27 @@ export default function PetKind({ petData, setPetData, onNext }) {
             onClick={() => handleKindSelect('강아지')}
             className={activeButton === '강아지' ? 'active' : ''}
           >
-            <img src="./src/assets/dog.png" alt="강아지" />
+            <img src="/img/dog.png" alt="강아지" />
             강아지
           </button>
           <button
             onClick={() => handleKindSelect('고양이')}
             className={activeButton === '고양이' ? 'active' : ''}
           >
-            <img src="./src/assets/cat.png" alt="고양이" />
+            <img src="/img/cat.png" alt="고양이" />
             고양이
           </button>
           <button
             onClick={() => handleKindSelect('그외')}
             className={activeButton === '그외' ? 'active' : ''}
           >
-            <img src="./src/assets/rabbit.png" alt="그 외" />그 외
+            <img src="/img/rabbit.png" alt="그 외" />그 외
           </button>
         </ButtonBox>
         <NextButton>
           <button onClick={handleNextClick}>
             다음
-            <img src="./src/assets/Dog print.png" />
+            <img src="/img/Dog print.png" />
           </button>
         </NextButton>
       </ThemeProvider>
