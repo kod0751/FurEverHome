@@ -65,7 +65,7 @@ export default function MainSection() {
         <Link to="/find">
           <button>
             나의 반려동물 찾기
-            <img src="../../assets/Dog print.png" alt="이미지" />
+            <img src="/images/Dog print.png" alt="이미지" />
           </button>
         </Link>
       </div>
