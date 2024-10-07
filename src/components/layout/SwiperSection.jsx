@@ -38,9 +38,9 @@ export default function SwiperSection() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const KEY = process.env.REACT_APP_KEY;
+      const apiKey = import.meta.env.VITE_REACT_APP_KEY;
       const { data } = await axios.get(
-        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&PBLANC_END_DE=${tomorrowDate}&Type=json&pSize=20`
+        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=${apiKey}&PBLANC_END_DE=${tomorrowDate}&Type=json&pSize=20`
       );
       setSwiperItems(data.AbdmAnimalProtect[1].row); // 가져온 데이터를 상태에 저장
     };
