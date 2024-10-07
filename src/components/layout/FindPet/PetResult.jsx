@@ -5,6 +5,7 @@ import ModalSection from '../ModalSection';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ResultCard from '../../common/ResultCard';
+import { Link } from 'react-router-dom';
 
 const TextArea = styled.div`
   display: flex;
@@ -44,6 +45,49 @@ const ButtonArea = styled.div`
     height: 3rem;
     background-color: ${({ theme }) => theme.color.black};
     border-radius: 8px;
+    color: ${({ theme }) => theme.color.white};
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: ${({ theme }) => theme.fontSize.md};
+    cursor: pointer;
+  }
+`;
+
+const NotFoundPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+  img {
+    width: 25rem;
+    margin-top: 5rem;
+  }
+
+  span {
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: ${({ theme }) => theme.fontSize.title};
+    color: ${({ theme }) => theme.color.black};
+    margin: 2rem 0 2rem 0;
+  }
+
+  p {
+    font-family: 'NanumSquareNeoBold';
+    color: ${({ theme }) => theme.color.black};
+  }
+
+  .subText {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  button {
+    width: 20rem;
+    height: 3rem;
+    background-color: ${({ theme }) => theme.color.skyblue};
+    border: none;
+    border-radius: 1.5rem;
     color: ${({ theme }) => theme.color.white};
     font-family: 'NanumSquareNeoExtraBold';
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -202,19 +246,46 @@ export default function PetResult({ petData, setPetData, setStep }) {
     <>
       <ThemeProvider theme={theme}>
         <Header />
-        <TextArea>
-          <span onClick={textclick}>당신의 운명의 반려동물을 찾았어요!</span>
-        </TextArea>
 
-        <ResultCard filteredData={filteredData} />
-        <ButtonArea>
-          <button className="result" onClick={handleModalOpen}>
-            결과 설명듣기
-          </button>
-          <button className="retest" onClick={reStart}>
-            테스트 다시 하기
-          </button>
-        </ButtonArea>
+        {/* 필터링 결과가 3개 미만일 때 '찾지 못했습니다' 메시지 출력 */}
+        {filteredData.length < 3 ? (
+          <NotFoundPage>
+            <div>
+              <img src="/img/Group 382.png" alt="이미지" />
+            </div>
+            <span>운명의 반려동물을 찾지 못 했어요</span>
+            <div className="subText">
+              <p>
+                하지만 지금 당신의 따뜻한 마음을 기다리는 친구들이 있습니다.
+              </p>
+              <p>유기동물 입양으로 가족이 되어주세요.</p>
+            </div>
+            <ButtonArea>
+              <Link to="/list">
+                <button>유기동물 보기</button>
+              </Link>
+            </ButtonArea>
+          </NotFoundPage>
+        ) : (
+          <>
+            <TextArea>
+              <span onClick={textclick}>
+                당신의 운명의 반려동물을 찾았어요!
+              </span>
+            </TextArea>
+
+            <ResultCard filteredData={filteredData} />
+            <ButtonArea>
+              <button className="result" onClick={handleModalOpen}>
+                결과 설명듣기
+              </button>
+              <button className="retest" onClick={reStart}>
+                테스트 다시 하기
+              </button>
+            </ButtonArea>
+          </>
+        )}
+
         {/* 모달이 열렸을 때만 ModalSection을 렌더링 */}
         {isModalOpen && <ModalSection onClose={handleModalClose} />}
       </ThemeProvider>
