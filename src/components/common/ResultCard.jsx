@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CardArea = styled.div`
@@ -80,6 +81,11 @@ const calculateAge = (birthInfo) => {
 
 export default function ResultCard({ filteredData }) {
   const limitedData = filteredData.slice(0, 3);
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
+  const handleDetailClick = (data) => {
+    navigate('/detail', { state: { data } }); // 페이지 이동과 함께 데이터 전달
+  };
 
   return (
     <CardArea>
@@ -96,7 +102,7 @@ export default function ResultCard({ filteredData }) {
             <span>{data.SPECIES_NM.replace(/\[.*?\]\s*/, '')}</span>
             <span>{calculateAge(data.AGE_INFO)} 살</span>
           </div>
-          <button>보러가기</button>
+          <button onClick={() => handleDetailClick(data)}>보러가기</button>
         </div>
       ))}
     </CardArea>
