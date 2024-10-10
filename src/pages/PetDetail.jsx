@@ -12,7 +12,7 @@ const TextArea = styled.div`
   font-family: 'NanumSquareNeoExtraBold';
   font-size: ${({ theme }) => theme.fontSize.title};
   color: ${({ theme }) => theme.color.black};
-  margin: 4rem 0 2rem 0;
+  margin: 4rem 0 3rem 0;
 `;
 
 const InfoArea = styled.div`
@@ -20,7 +20,7 @@ const InfoArea = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 5rem;
+  gap: 7rem;
 `;
 
 const ImageArea = styled.div`
@@ -161,6 +161,7 @@ export default function PetDetailPage() {
             // 지도의 크기
             width: '100%',
             height: '35rem',
+            marginBottom: '4rem',
           }}
           level={6} // 지도의 확대 레벨
         >
