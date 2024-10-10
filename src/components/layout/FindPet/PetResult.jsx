@@ -247,7 +247,6 @@ export default function PetResult({ petData, setPetData, setStep }) {
       <ThemeProvider theme={theme}>
         <Header />
 
-        {/* 필터링 결과가 3개 미만일 때 '찾지 못했습니다' 메시지 출력 */}
         {filteredData.length < 3 ? (
           <NotFoundPage>
             <div>
