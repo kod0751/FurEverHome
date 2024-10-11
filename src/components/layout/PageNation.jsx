@@ -28,8 +28,8 @@ const PageButton = styled.button`
 `;
 
 const NavigationButton = styled.button`
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +43,7 @@ const NavigationButton = styled.button`
   cursor: pointer;
 
   &:disabled {
-    display: none;
+    visibility: hidden;
   }
 `;
 
@@ -94,11 +94,11 @@ const PageNation = ({ value, onChange, total }) => {
   return (
     <PageNationWrapper>
       <NavigationButton onClick={handlePrevClick} disabled={value === 1}>
-        <box-icon name="chevron-left" color="#323232"></box-icon>
+        <box-icon name="chevron-left" color="#323232" size="lg"></box-icon>
       </NavigationButton>
       {renderPageButtons()}
       <NavigationButton onClick={handleNextClick} disabled={value === total}>
-        <box-icon name="chevron-right" color="#323232"></box-icon>
+        <box-icon name="chevron-right" color="#323232" size="lg"></box-icon>
       </NavigationButton>
     </PageNationWrapper>
   );
