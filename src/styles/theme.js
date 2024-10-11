@@ -14,6 +14,7 @@ const fontSize = {
   // 값을 사용하는 용도에 맞춰 이름을 지정해줄 수도 있습니다.
   subTitle: calRem(24), // 1.5rem;
   title: calRem(36), // 2.25rem;
+  mainTitle: calRem(42), // 2.625rem;
 };
 
 // 색상에 대한 변수를 객체에 담아서 사용할 수 있습니다.

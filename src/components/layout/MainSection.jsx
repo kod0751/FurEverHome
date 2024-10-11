@@ -6,7 +6,7 @@ const SectionBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 7rem;
 
   .sectionInfo {
     display: flex;
@@ -14,19 +14,25 @@ const SectionBlock = styled.div`
     gap: 1rem;
   }
 
+  .sectionInfo span:nth-child(2) {
+    margin-bottom: 1rem;
+  }
+
   img {
     width: 40%;
     height: 40%;
   }
 
-  .sectionInfo span {
-    font-family: 'NanumSquareNeoBold';
-    font-size: ${({ theme }) => theme.fontSize.title};
+  .mainText {
+    font-family: 'NanumSquareNeoExtraBold';
+    font-size: ${({ theme }) => theme.fontSize.mainTitle};
+    color: ${({ theme }) => theme.color.black};
     gap: 0;
   }
 
   p {
     font-family: 'NanumSquareNeo';
+    font-size: ${({ theme }) => theme.fontSize.lg};
   }
 
   button {
@@ -56,8 +62,8 @@ export default function MainSection() {
   return (
     <SectionBlock>
       <div className="sectionInfo">
-        <span>버려진 아이들과 </span>
-        <span>
+        <span className="mainText">버려진 아이들과 </span>
+        <span className="mainText">
           당신의 <span className="highlight">운명적 만남</span>, 찾고계신가요?
         </span>
         <p>지금 당신의 따듯한 마음을 기다리는 친구들이 있습니다.</p>
