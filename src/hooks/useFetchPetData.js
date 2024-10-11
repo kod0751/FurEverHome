@@ -2,5 +2,5 @@ import { useQuery } from 'react-query';
 import { fetchPetData } from '../api/petData';
 
 export const useFetchPetData = () => {
-  return useQuery('animalData', fetchPetData);
+  return useQuery('petData', fetchPetData);
 };

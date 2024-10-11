@@ -21,7 +21,7 @@ const TextArea = styled.div`
 
 export default function PetListpage() {
   // useQuery로 데이터 fetch
-  const { data, isLoading, error } = useFetchPetData();
+  const { data } = useFetchPetData();
 
   const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(1);
@@ -80,10 +80,6 @@ export default function PetListpage() {
     setFilteredData(newFilteredData);
     setPage(1); // 필터링 후 첫 페이지로 이동
   }, [filters, data]);
-
-  // 로딩 중 또는 에러 발생 시 처리
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching data: {error.message}</p>;
 
   const totalCount = data ? data.totalCount : 0;
 

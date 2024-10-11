@@ -3,9 +3,9 @@ import theme from '../../../styles/theme';
 import Header from '../Header';
 import ModalSection from '../ModalSection';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ResultCard from '../../common/ResultCard';
 import { Link } from 'react-router-dom';
+import { useFetchPetData } from '../../../hooks/useFetchPetData';
 
 const TextArea = styled.div`
   display: flex;
@@ -96,9 +96,18 @@ const NotFoundPage = styled.div`
 `;
 
 export default function PetResult({ petData, setPetData, setStep }) {
-  const [items, setItems] = useState([]);
+  const { data } = useFetchPetData();
+
   const [filteredData, setFilteredData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // useQuery로부터 받은 데이터가 있으면 처리
+  useEffect(() => {
+    if (data) {
+      const { items } = data;
+      setFilteredData(items);
+    }
+  }, [data]);
 
   // 모달 열기 핸들러
   const handleModalOpen = () => {
@@ -127,19 +136,9 @@ export default function PetResult({ petData, setPetData, setStep }) {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      // const KEY = process.env.REACT_APP_KEY;
-      const { data } = await axios.get(
-        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&Type=json&pSize=1000`
-      );
-      setItems(data.AbdmAnimalProtect[1].row); // 가져온 데이터를 상태에 저장
-      setFilteredData(filteredData);
-    };
+    if (!data) return;
 
-    fetchData(); // 함수 호출
-  }, []); // 컴포넌트가 처음 렌더링될 때 한 번만 실행
-
-  useEffect(() => {
+    const { items } = data;
     const newFilteredData = items.filter((item) => {
       const whiteColorKeywords = ['아이보리', '크림', '백색', '백', '흰'];
       const blackColorKeywords = [
@@ -240,7 +239,7 @@ export default function PetResult({ petData, setPetData, setStep }) {
     });
 
     setFilteredData(newFilteredData); // 필터링된 데이터를 업데이트
-  }, [petData, items]);
+  }, [petData, data]);
 
   return (
     <>
