@@ -5,8 +5,8 @@ import theme from '../styles/theme';
 import CategorySection from '../components/layout/CategorySection';
 import PetlistSection from '../components/layout/PetlistSection';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import PageNation from '../components/layout/PageNation';
+import { useFetchPetData } from '../hooks/useFetchPetData';
 
 const TextArea = styled.div`
   display: flex;
@@ -20,10 +20,11 @@ const TextArea = styled.div`
 `;
 
 export default function PetListpage() {
-  const [items, setItems] = useState([]);
+  // useQuery로 데이터 fetch
+  const { data, isLoading, error } = useFetchPetData();
+
   const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(1);
-  const [number, setNumber] = useState(0);
   const [filters, setFilters] = useState({
     region: '시도군',
     state: '전체',
@@ -33,21 +34,19 @@ export default function PetListpage() {
     neut: '전체',
   });
 
+  // useQuery로부터 받은 데이터가 있으면 처리
   useEffect(() => {
-    const fetchData = async () => {
-      // const KEY = process.env.REACT_APP_KEY;
-      const { data } = await axios.get(
-        `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=e852a9e19dbf4ef291979109612f0b27&Type=json&pSize=1000`
-      );
-      setItems(data.AbdmAnimalProtect[1].row); // 가져온 데이터를 상태에 저장
-      setNumber(data.AbdmAnimalProtect[0].head[0].list_total_count); // 1
-      setFilteredData(filteredData);
-    };
+    if (data) {
+      const { items } = data;
+      setFilteredData(items);
+    }
+  }, [data]);
 
-    fetchData(); // 함수 호출
-  }, []); // 컴포넌트가 처음 렌더링될 때 한 번만 실행
-
+  // 필터링 로직
   useEffect(() => {
+    if (!data) return;
+
+    const { items } = data;
     const newFilteredData = items.filter((item) => {
       const currentYear = new Date().getFullYear();
       const birthYear = item.AGE_INFO.slice(0, 4);
@@ -78,9 +77,15 @@ export default function PetListpage() {
       );
     });
 
-    setFilteredData(newFilteredData); // 필터링된 데이터를 업데이트
-    setPage(1); // 필터링을 하면 첫페이지부터 보여주기
-  }, [filters, items]);
+    setFilteredData(newFilteredData);
+    setPage(1); // 필터링 후 첫 페이지로 이동
+  }, [filters, data]);
+
+  // 로딩 중 또는 에러 발생 시 처리
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data: {error.message}</p>;
+
+  const totalCount = data ? data.totalCount : 0;
 
   return (
     <>
@@ -89,8 +94,8 @@ export default function PetListpage() {
         <SwiperSection />
         <CategorySection filters={filters} setFilters={setFilters} />
         <TextArea>
-          <span className="highlight">{number}</span>
-          마리의 친구들이 기다리고 있어요
+          <span className="highlight">{totalCount}</span> 마리의 친구들이
+          기다리고 있어요
         </TextArea>
         <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
         <PageNation
