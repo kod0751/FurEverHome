@@ -81,8 +81,6 @@ export default function PetListpage() {
     setPage(1); // 필터링 후 첫 페이지로 이동
   }, [filters, data]);
 
-  const totalCount = data ? data.totalCount : 0;
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -90,8 +88,8 @@ export default function PetListpage() {
         <SwiperSection />
         <CategorySection filters={filters} setFilters={setFilters} />
         <TextArea>
-          <span className="highlight">{totalCount}</span> 마리의 친구들이
-          기다리고 있어요
+          <span className="highlight">{filteredData.length}</span> 마리의
+          친구들이 기다리고 있어요
         </TextArea>
         <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
         <PageNation
