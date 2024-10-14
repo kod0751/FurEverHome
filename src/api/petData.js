@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 페이지별로 데이터를 가져오는 함수
 export const fetchPetData = async (page) => {
-  const KEY = 'e852a9e19dbf4ef291979109612f0b27'; // API 키를 직접 삽입
+  const KEY = 'e852a9e19dbf4ef291979109612f0b27';
   const { data } = await axios.get(
     `https://openapi.gg.go.kr/AbdmAnimalProtect?KEY=${KEY}&Type=json&pSize=1000&pIndex=${page}`
   );

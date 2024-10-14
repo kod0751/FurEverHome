@@ -98,8 +98,6 @@ export default function PetWeight({ petData, setPetData, onNext }) {
       ...prevData,
       weight: selectedWeight,
     }));
-
-    console.log(petData);
     // 다음 단계로 이동
     onNext();
   };

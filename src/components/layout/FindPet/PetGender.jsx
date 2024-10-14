@@ -99,7 +99,6 @@ export default function PetGender({ petData, setPetData, onNext }) {
       gender: selectedGender,
     }));
 
-    console.log(petData);
     // 다음 단계로 이동
     onNext();
   };
