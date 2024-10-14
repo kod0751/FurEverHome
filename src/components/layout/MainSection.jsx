@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SectionBlock = styled.div`
-  padding: 2rem;
+  max-width: 1440px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
