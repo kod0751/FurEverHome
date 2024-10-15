@@ -6,8 +6,8 @@ const SelectBox = styled.div`
   padding: 2rem 0;
 
   select {
-    width: 85px;
-    height: 35px;
+    width: 5rem;
+    height: 2.2rem;
     border: 1px solid #bbbbbb;
     border-radius: 10px;
     font-family: 'NanumSquareNeoBold';
@@ -121,7 +121,7 @@ export default function CategorySection({ filters, setFilters }) {
       </select>
       <select
         className="select"
-        name="지역명"
+        name="품종"
         value={filters.kind}
         onChange={(e) => setFilters({ ...filters, kind: e.target.value })}
       >
