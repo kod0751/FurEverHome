@@ -59,8 +59,6 @@ const InfoBox = styled.div`
 `;
 
 export default function ModalSection({ onClose }) {
-  // 모달 닫기 핸들러
-
   return (
     <ModalArea>
       <div className="modalCon">
