@@ -83,21 +83,19 @@ export default function PetListpage() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Header />
-        <SwiperSection />
-        <CategorySection filters={filters} setFilters={setFilters} />
-        <TextArea>
-          <span className="highlight">{filteredData.length}</span> 마리의
-          친구들이 기다리고 있어요
-        </TextArea>
-        <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
-        <PageNation
-          value={page}
-          onChange={setPage}
-          total={Math.ceil(filteredData.length / 15)}
-        />
-      </ThemeProvider>
+      <Header />
+      <SwiperSection />
+      <CategorySection filters={filters} setFilters={setFilters} />
+      <TextArea>
+        <span className="highlight">{filteredData.length}</span> 마리의 친구들이
+        기다리고 있어요
+      </TextArea>
+      <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
+      <PageNation
+        value={page}
+        onChange={setPage}
+        total={Math.ceil(filteredData.length / 15)}
+      />
     </>
   );
 }

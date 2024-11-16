@@ -1,5 +1,3 @@
-import { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
 import Header from '../components/layout/Header';
 import LocationSection from '../components/layout/LocationSection';
 import CategorySection from '../components/layout/CategorySection';
@@ -75,17 +73,15 @@ export default function LocationPage() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Header />
-        <LocationSection setShelter={setShelter} />
-        <CategorySection filters={filters} setFilters={setFilters} />
-        <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
-        <PageNation
-          value={page}
-          onChange={setPage}
-          total={filteredData.length / 15 + 1}
-        />
-      </ThemeProvider>
+      <Header />
+      <LocationSection setShelter={setShelter} />
+      <CategorySection filters={filters} setFilters={setFilters} />
+      <PetlistSection data={filteredData.slice((page - 1) * 15, page * 15)} />
+      <PageNation
+        value={page}
+        onChange={setPage}
+        total={filteredData.length / 15 + 1}
+      />
     </>
   );
 }

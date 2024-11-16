@@ -1,5 +1,4 @@
-import styled, { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
+import styled from 'styled-components';
 import Header from '../components/layout/Header';
 import { useEffect, useState } from 'react';
 import Card from '../components/common/Card';
@@ -76,29 +75,27 @@ export default function MyPetPage() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Header />
+      <Header />
 
-        {/* 북마크된 데이터가 없을 때 보여줄 내용 */}
-        {bookmarkedData.length === 0 && (
-          <EmptyPage>
-            <img src="/img/Group 382.png" alt="동물" />
-            <span>다시 보고 싶은 친구들을 추가해주세요!</span>
-          </EmptyPage>
-        )}
+      {/* 북마크된 데이터가 없을 때 보여줄 내용 */}
+      {bookmarkedData.length === 0 && (
+        <EmptyPage>
+          <img src="/img/Group 382.png" alt="동물" />
+          <span>다시 보고 싶은 친구들을 추가해주세요!</span>
+        </EmptyPage>
+      )}
 
-        {/* 북마크된 데이터가 있을 때 */}
-        {bookmarkedData.length > 0 && (
-          <>
-            <TextArea>친구들에게 관심을 가져주셔서 감사합니다!</TextArea>
-            <Container>
-              {bookmarkedData.map((data) => (
-                <Card key={data.ABDM_IDNTFY_NO} data={data} />
-              ))}
-            </Container>
-          </>
-        )}
-      </ThemeProvider>
+      {/* 북마크된 데이터가 있을 때 */}
+      {bookmarkedData.length > 0 && (
+        <>
+          <TextArea>친구들에게 관심을 가져주셔서 감사합니다!</TextArea>
+          <Container>
+            {bookmarkedData.map((data) => (
+              <Card key={data.ABDM_IDNTFY_NO} data={data} />
+            ))}
+          </Container>
+        </>
+      )}
     </>
   );
 }

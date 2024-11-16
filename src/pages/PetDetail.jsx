@@ -1,5 +1,5 @@
-import styled, { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
+import styled from 'styled-components';
+
 import Header from '../components/layout/Header';
 import { useLocation } from 'react-router-dom';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
@@ -85,103 +85,101 @@ export default function PetDetailPage() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Header />
-        <TextArea>
-          <span className="highlight">공고 번호</span> {data.PBLANC_IDNTFY_NO}
-        </TextArea>
-        <InfoArea>
-          <ImageArea>
-            <img src={data.IMAGE_COURS} alt="이미지" />
-          </ImageArea>
-          <InfoBox>
-            <Info>
-              <span>품종</span>
-              <p>{data.SPECIES_NM.replace(/\[.*?\]\s*/, '')}</p>
-            </Info>
-            <Info>
-              <span>성별</span>
-              <p>{data.SEX_NM === 'M' ? '남아' : '여아'}</p>
-            </Info>
-            <Info>
-              <span>중성화여부</span>
-              <p>{data.NEUT_YN === 'Y' ? '중성화 완료' : '중성화 미완료'}</p>
-            </Info>
-            <Info>
-              <span>나이</span>
-              <p>{data.AGE_INFO}</p>
-            </Info>
-            <Info>
-              <span>체중</span>
-              <p>{data.BDWGH_INFO}</p>
-            </Info>
-            <Info>
-              <span>접수일시</span>
-              <p>{formatDate(data.RECEPT_DE)}</p>
-            </Info>
-            <Info>
-              <span>발견장소</span>
-              <p>{data.DISCVRY_PLC_INFO}</p>
-            </Info>
-            <Info>
-              <span>특징</span>
-              <p>{data.SFETR_INFO}</p>
-            </Info>
-            <Info>
-              <span>공고기한</span>
-              <p>
-                {formatDate(data.PBLANC_BEGIN_DE)} ~{' '}
-                {formatDate(data.PBLANC_END_DE)}
-              </p>
-            </Info>
-            <Info>
-              <span>보호센터</span>
-              <p>{data.SHTER_NM}</p>
-            </Info>
-            <Info>
-              <span>센터주소</span>
-              <p>{data.REFINE_ROADNM_ADDR}</p>
-            </Info>
-            <Info>
-              <span>연락처</span>
-              <p>{data.SHTER_TELNO}</p>
-            </Info>
-          </InfoBox>
-        </InfoArea>
-        <TextArea>
-          <span className="highlight">{data.SHTER_NM}</span>에서 기다리고 있어요
-        </TextArea>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
+      <Header />
+      <TextArea>
+        <span className="highlight">공고 번호</span> {data.PBLANC_IDNTFY_NO}
+      </TextArea>
+      <InfoArea>
+        <ImageArea>
+          <img src={data.IMAGE_COURS} alt="이미지" />
+        </ImageArea>
+        <InfoBox>
+          <Info>
+            <span>품종</span>
+            <p>{data.SPECIES_NM.replace(/\[.*?\]\s*/, '')}</p>
+          </Info>
+          <Info>
+            <span>성별</span>
+            <p>{data.SEX_NM === 'M' ? '남아' : '여아'}</p>
+          </Info>
+          <Info>
+            <span>중성화여부</span>
+            <p>{data.NEUT_YN === 'Y' ? '중성화 완료' : '중성화 미완료'}</p>
+          </Info>
+          <Info>
+            <span>나이</span>
+            <p>{data.AGE_INFO}</p>
+          </Info>
+          <Info>
+            <span>체중</span>
+            <p>{data.BDWGH_INFO}</p>
+          </Info>
+          <Info>
+            <span>접수일시</span>
+            <p>{formatDate(data.RECEPT_DE)}</p>
+          </Info>
+          <Info>
+            <span>발견장소</span>
+            <p>{data.DISCVRY_PLC_INFO}</p>
+          </Info>
+          <Info>
+            <span>특징</span>
+            <p>{data.SFETR_INFO}</p>
+          </Info>
+          <Info>
+            <span>공고기한</span>
+            <p>
+              {formatDate(data.PBLANC_BEGIN_DE)} ~{' '}
+              {formatDate(data.PBLANC_END_DE)}
+            </p>
+          </Info>
+          <Info>
+            <span>보호센터</span>
+            <p>{data.SHTER_NM}</p>
+          </Info>
+          <Info>
+            <span>센터주소</span>
+            <p>{data.REFINE_ROADNM_ADDR}</p>
+          </Info>
+          <Info>
+            <span>연락처</span>
+            <p>{data.SHTER_TELNO}</p>
+          </Info>
+        </InfoBox>
+      </InfoArea>
+      <TextArea>
+        <span className="highlight">{data.SHTER_NM}</span>에서 기다리고 있어요
+      </TextArea>
+      <Map // 지도를 표시할 Container
+        center={{
+          // 지도의 중심좌표
+          lat: data.REFINE_WGS84_LAT,
+          lng: data.REFINE_WGS84_LOGT,
+        }}
+        style={{
+          // 지도의 크기
+          width: '100%',
+          height: '35rem',
+          marginBottom: '4rem',
+        }}
+        level={6} // 지도의 확대 레벨
+      >
+        <MapMarker
+          position={{
             lat: data.REFINE_WGS84_LAT,
             lng: data.REFINE_WGS84_LOGT,
           }}
-          style={{
-            // 지도의 크기
-            width: '100%',
-            height: '35rem',
-            marginBottom: '4rem',
+          image={{
+            src: '/img/mark.png',
+            size: { width: 20, height: 20 },
           }}
-          level={6} // 지도의 확대 레벨
+          title={data.SHTER_NM}
         >
-          <MapMarker
-            position={{
-              lat: data.REFINE_WGS84_LAT,
-              lng: data.REFINE_WGS84_LOGT,
-            }}
-            image={{
-              src: '/img/mark.png',
-              size: { width: 20, height: 20 },
-            }}
-            title={data.SHTER_NM}
-          >
-            <div style={{ padding: '0.3rem', color: '#000' }}>
-              {data.SHTER_NM}
-            </div>
-          </MapMarker>
-        </Map>
-      </ThemeProvider>
+          <div style={{ padding: '0.3rem', color: '#000' }}>
+            {data.SHTER_NM}
+          </div>
+        </MapMarker>
+      </Map>
     </>
   );
 }
