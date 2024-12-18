@@ -1,7 +1,6 @@
 import Header from '../components/layout/Header';
 import SwiperSection from '../components/layout/SwiperSection';
-import styled, { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
+import styled from 'styled-components';
 import CategorySection from '../components/layout/CategorySection';
 import PetlistSection from '../components/layout/PetlistSection';
 import { useEffect, useState } from 'react';

@@ -127,6 +127,11 @@ table {
   border-spacing: 0;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 a:visited {
   color: #323232;
 }
