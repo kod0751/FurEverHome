@@ -65,7 +65,7 @@ const NextButtonStyled = styled.button`
   font-family: 'NanumSquareNeoExtraBold';
   font-size: ${({ theme }) => theme.fontSize.xl};
   background-color: ${({ theme, disabled }) =>
-    disabled ? '#ccc' : theme.color.skyblue}; /* 비활성화 시 회색 */
+    disabled ? theme.color.grey : theme.color.skyblue}; /* 비활성화 시 회색 */
   color: ${({ theme }) => theme.color.white};
   border-radius: 1.7rem;
   border: 0;
