@@ -15,11 +15,11 @@ export default function LocationPage() {
   });
   const [filters, setFilters] = useState({
     region: '시도군',
-    state: '전체',
-    kind: '전체',
-    age: '전체',
-    gender: '전체',
-    neut: '전체',
+    state: '상태',
+    kind: '품종',
+    age: '나이',
+    gender: '성별',
+    neut: '중성화',
   });
 
   useEffect(() => {
@@ -43,23 +43,23 @@ export default function LocationPage() {
 
       return (
         (filters.region === '시도군' || item.SIGUN_NM === filters.region) &&
-        (filters.state === '전체' ||
+        (filters.state === '상태' ||
           (filters.state === '보호중' && item.STATE_NM.includes('보호중')) ||
           (filters.state === '종료' && item.STATE_NM.includes('종료'))) &&
-        (filters.kind === '전체' ||
+        (filters.kind === '품종' ||
           (filters.kind === '강아지' && item.SPECIES_NM.includes('개')) ||
           (filters.kind === '고양이' && item.SPECIES_NM.includes('고양이')) ||
           (filters.kind === '그외' && item.SPECIES_NM.includes('기타축종'))) &&
-        (filters.age === '전체' ||
+        (filters.age === '나이' ||
           (filters.age === '1세미만' && petAge === 0) ||
           (filters.age === '1살~5살' && petAge >= 1 && petAge <= 4) ||
           (filters.age === '6살~9살' && petAge >= 5 && petAge <= 8) ||
           (filters.age === '10살이상' && petAge >= 9)) &&
-        (filters.gender === '전체' ||
+        (filters.gender === '성별' ||
           (filters.gender === '여아'
             ? item.SEX_NM === 'F'
             : item.SEX_NM === 'M')) &&
-        (filters.neut === '전체' ||
+        (filters.neut === '중성화' ||
           (filters.neut === '완료' && item.NEUT_YN === 'Y') ||
           (filters.neut === '미완료' && item.NEUT_YN === 'N') ||
           (filters.neut === '알수없음' && item.NEUT_YN === 'U')) &&
